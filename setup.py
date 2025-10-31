@@ -9,14 +9,14 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
     requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
 
 setup(
-    name="tokenwise",
+    name="tokenwise-optimizer",
     version="1.0.0",
     author="TokenWise Team",
     author_email="team@tokenwise.ai",
     description="Smart Context Optimization for LLMs - Reduce tokens by 70-90%",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/tokenwise",
+    url="https://github.com/Naseem77/tokenWise",
     packages=find_packages(exclude=["tests", "examples"]),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -43,8 +43,8 @@ setup(
     include_package_data=True,
     keywords="llm, tokens, optimization, context, ai, gpt, openai, cost-reduction",
     project_urls={
-        "Bug Reports": "https://github.com/yourusername/tokenwise/issues",
-        "Source": "https://github.com/yourusername/tokenwise",
-        "Documentation": "https://github.com/yourusername/tokenwise#readme",
+        "Bug Reports": "https://github.com/Naseem77/tokenWise/issues",
+        "Source": "https://github.com/Naseem77/tokenWise",
+        "Documentation": "https://github.com/Naseem77/tokenWise#readme",
     },
 )

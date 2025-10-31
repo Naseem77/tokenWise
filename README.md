@@ -39,10 +39,12 @@ User Query → Analyze Intent → Rank Context Pieces → Select Top N → Send 
 ### 1. Installation
 
 ```bash
-# Clone or navigate to the project directory
-cd tokenwise
+# Install from PyPI
+pip install tokenwise-optimizer
 
-# Install dependencies
+# Or install from source
+git clone https://github.com/Naseem77/tokenWise.git
+cd tokenWise
 pip install -r requirements.txt
 ```
 
