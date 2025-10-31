@@ -1,0 +1,17 @@
+# Include important files in the distribution
+include README.md
+include LICENSE
+include requirements.txt
+include .env.example
+
+# Include documentation
+include *.md
+recursive-include docs *.md
+
+# Exclude unnecessary files
+exclude .gitignore
+exclude .env
+recursive-exclude tests *
+recursive-exclude examples *
+recursive-exclude .github *
+
