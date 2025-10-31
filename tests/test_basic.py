@@ -1,8 +1,8 @@
 """Basic tests for TokenWise components."""
 import pytest
-from models import ContextChunk, ChunkingOptions, OptimizationOptions
-from chunker import ContextChunker
-from utils import count_tokens, extract_keywords, calculate_cosine_similarity
+from tokenwise.models import ContextChunk, ChunkingOptions, OptimizationOptions
+from tokenwise.chunker import ContextChunker
+from tokenwise.utils import count_tokens, extract_keywords, calculate_cosine_similarity
 
 
 def test_token_counting():
