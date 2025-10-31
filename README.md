@@ -1,8 +1,10 @@
-# 🎯 TokenWise
+# 🎯 TokenWise Optimizer
 
 **Smart Context Optimization for LLMs** - Reduce tokens by 70-90%, save costs, maintain quality.
 
-TokenWise analyzes user queries and intelligently ranks context pieces to send only the most relevant information to your LLM, dramatically reducing token usage and costs while maintaining or improving response quality.
+TokenWise Optimizer analyzes user queries and intelligently ranks context pieces to send only the most relevant information to your LLM, dramatically reducing token usage and costs while maintaining or improving response quality.
+
+📦 **PyPI Package:** `tokenwise-optimizer`
 
 ---
 
