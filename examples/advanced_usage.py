@@ -1,4 +1,5 @@
 """Advanced usage example with vector store indexing."""
+
 import requests
 import json
 import time
@@ -6,14 +7,14 @@ import time
 
 def main():
     """Run advanced optimization example with indexing."""
-    
+
     base_url = "http://localhost:8000"
-    
+
     # Check API health
     print("Checking API health...")
     health_response = requests.get(f"{base_url}/health")
     print(f"Status: {health_response.json()}\n")
-    
+
     # Example: Large codebase context
     codebase_files = [
         {
@@ -44,7 +45,7 @@ def main():
                         self.password_hash.encode('utf-8')
                     )
             """,
-            "type": "code"
+            "type": "code",
         },
         {
             "id": "auth_service.py",
@@ -79,7 +80,7 @@ def main():
                     except JWTError:
                         return None
             """,
-            "type": "code"
+            "type": "code",
         },
         {
             "id": "api_endpoints.py",
@@ -114,14 +115,14 @@ def main():
                 access_token = auth_service.create_access_token(data={"sub": user.username})
                 return {"access_token": access_token, "token_type": "bearer"}
             """,
-            "type": "code"
-        }
+            "type": "code",
+        },
     ]
-    
+
     print("=" * 80)
     print("Advanced TokenWise Example: Indexing + Optimization")
     print("=" * 80)
-    
+
     # Step 1: Index all files (optional, for faster future queries)
     print("\n📚 Step 1: Indexing codebase...")
     for file in codebase_files:
@@ -132,60 +133,58 @@ def main():
                 print(f"  ✓ Indexed {file['id']}: {result['chunks_indexed']} chunks")
         except Exception as e:
             print(f"  ✗ Failed to index {file['id']}: {e}")
-    
+
     # Step 2: Test different optimization strategies
     queries = [
         ("How do I authenticate a user?", "diversity"),
         ("Show me the user model structure", "top-n"),
-        ("How are passwords hashed?", "dependency")
+        ("How are passwords hashed?", "dependency"),
     ]
-    
+
     for query, strategy in queries:
         print(f"\n{'=' * 80}")
         print(f"🔍 Query: {query}")
         print(f"📐 Strategy: {strategy}")
         print("=" * 80)
-        
+
         request_data = {
             "query": query,
             "context": codebase_files,
             "targetTokens": 1500,
-            "options": {
-                "strategy": strategy,
-                "includeMetadata": True,
-                "minRelevanceScore": 0.2
-            }
+            "options": {"strategy": strategy, "includeMetadata": True, "minRelevanceScore": 0.2},
         }
-        
+
         try:
             start = time.time()
             response = requests.post(f"{base_url}/optimize", json=request_data, timeout=30)
             elapsed = (time.time() - start) * 1000
-            
+
             if response.status_code == 200:
                 result = response.json()
-                stats = result['stats']
-                
+                stats = result["stats"]
+
                 print(f"\n✅ Optimization Complete:")
                 print(f"  • Reduction: {stats['reduction_percent']}%")
                 print(f"  • Tokens: {stats['original_tokens']} → {stats['optimized_tokens']}")
                 print(f"  • Savings: ${stats['estimated_savings_usd']}")
-                print(f"  • Time: {elapsed:.1f}ms (API) + {stats['processing_time_ms']:.1f}ms (processing)")
+                print(
+                    f"  • Time: {elapsed:.1f}ms (API) + {stats['processing_time_ms']:.1f}ms (processing)"
+                )
                 print(f"  • Selected: {stats['chunks_selected']}/{stats['chunks_analyzed']} chunks")
-                
+
                 print(f"\n📋 Top Selected Chunks:")
-                for i, chunk in enumerate(result['optimized_context'][:3], 1):
+                for i, chunk in enumerate(result["optimized_context"][:3], 1):
                     print(f"  {i}. {chunk['source']} (score: {chunk['relevance_score']:.3f})")
                     print(f"     → {chunk['reason']}")
-                
+
         except Exception as e:
             print(f"❌ Error: {e}")
-    
+
     # Step 3: Get system statistics
     print(f"\n{'=' * 80}")
     print("📊 System Statistics")
     print("=" * 80)
-    
+
     try:
         stats_response = requests.get(f"{base_url}/stats")
         if stats_response.status_code == 200:
@@ -195,14 +194,13 @@ def main():
             print(f"Token Budget: {stats['config']['default_token_budget']}")
             print(f"Embedding Model: {stats['config']['embedding_model']}")
             print(f"\nScoring Weights:")
-            for key, value in stats['config']['scoring_weights'].items():
+            for key, value in stats["config"]["scoring_weights"].items():
                 print(f"  • {key.capitalize()}: {value}")
     except Exception as e:
         print(f"❌ Error getting stats: {e}")
-    
+
     print("\n" + "=" * 80)
 
 
 if __name__ == "__main__":
     main()
-

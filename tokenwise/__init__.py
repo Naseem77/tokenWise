@@ -14,7 +14,7 @@ from .models import (
     OptimizationRequest,
     OptimizationResponse,
     OptimizationOptions,
-    ChunkingOptions
+    ChunkingOptions,
 )
 
 __all__ = [
@@ -25,4 +25,3 @@ __all__ = [
     "OptimizationOptions",
     "ChunkingOptions",
 ]
-

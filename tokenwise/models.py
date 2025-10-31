@@ -1,4 +1,5 @@
 """Data models for TokenWise."""
+
 from typing import List, Optional, Dict, Any, Literal
 from pydantic import BaseModel, Field
 from datetime import datetime
@@ -6,7 +7,7 @@ from datetime import datetime
 
 class ContextChunk(BaseModel):
     """Represents a chunk of context."""
-    
+
     id: str
     text: str
     type: Literal["code", "docs", "conversation", "other"] = "other"
@@ -21,7 +22,7 @@ class ContextChunk(BaseModel):
 
 class ScoredChunk(BaseModel):
     """A chunk with relevance scores."""
-    
+
     chunk: ContextChunk
     relevance_score: float
     embedding_score: float = 0.0
@@ -33,7 +34,7 @@ class ScoredChunk(BaseModel):
 
 class OptimizationRequest(BaseModel):
     """Request for context optimization."""
-    
+
     query: str
     context: List[Dict[str, Any]]
     target_tokens: Optional[int] = None
@@ -42,7 +43,7 @@ class OptimizationRequest(BaseModel):
 
 class OptimizationOptions(BaseModel):
     """Options for optimization."""
-    
+
     strategy: Literal["top-n", "diversity", "dependency"] = "diversity"
     include_metadata: bool = True
     preserve_order: bool = False
@@ -52,7 +53,7 @@ class OptimizationOptions(BaseModel):
 
 class OptimizedChunkResult(BaseModel):
     """A single optimized chunk in the result."""
-    
+
     id: str
     text: str
     relevance_score: float
@@ -63,7 +64,7 @@ class OptimizedChunkResult(BaseModel):
 
 class OptimizationStats(BaseModel):
     """Statistics about the optimization."""
-    
+
     original_tokens: int
     optimized_tokens: int
     reduction_percent: float
@@ -75,17 +76,16 @@ class OptimizationStats(BaseModel):
 
 class OptimizationResponse(BaseModel):
     """Response from context optimization."""
-    
+
     optimized_context: List[OptimizedChunkResult]
     stats: OptimizationStats
 
 
 class ChunkingOptions(BaseModel):
     """Options for chunking content."""
-    
+
     strategy: Literal["fixed", "semantic", "sliding"] = "semantic"
     chunk_size: int = 512
     overlap: int = 50
     preserve_code_blocks: bool = True
     preserve_paragraphs: bool = True
-

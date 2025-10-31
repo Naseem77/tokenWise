@@ -207,21 +207,21 @@ Includes related chunks (e.g., functions that call each other).
 
 ## 📊 Benchmark Results
 
-Real-world performance test with authentication codebase:
+Real-world performance test with authentication codebase (GPT-3.5-turbo):
 
 | Metric | Before TokenWise | After TokenWise | Improvement |
 |--------|-----------------|-----------------|-------------|
-| **Tokens** | 452 | 123 | **72.8% reduction** |
-| **Cost per query** | $0.00136 | $0.00037 | **$0.00099 saved** |
-| **Processing time** | - | 2.7s | Optimized context ready |
+| **Tokens** | 459 | 155 | **66.2% reduction** |
+| **Cost per query** | $0.001288 | $0.000772 | **$0.000516 saved (40%)** |
+| **Processing time** | 5.1s | 8.7s | +3.5s optimization overhead |
 
 ### Cost Savings at Scale
 
 | Queries/Month | Before | After | **Monthly Savings** |
 |---------------|--------|-------|-------------------|
-| 10,000 | $13.60 | $3.70 | **$9.90** |
-| 100,000 | $136 | $37 | **$99** |
-| 1,000,000 | $1,360 | $370 | **$990** |
+| 10,000 | $12.88 | $7.72 | **$5.16** |
+| 100,000 | $128.80 | $77.20 | **$51.60** |
+| 1,000,000 | $1,288 | $772 | **$516** |
 
 **Query:** "How does user authentication and login work?"  
 **Context:** 5 files (auth, database, payment, email, analytics)  
@@ -230,10 +230,11 @@ Real-world performance test with authentication codebase:
 
 ### What This Means
 
-- ✅ **72.8% fewer tokens** sent to your LLM
+- ✅ **66% fewer tokens** sent to your LLM
 - ✅ **Same or better answer quality** (focused on relevant code)
 - ✅ **Automatic filtering** of irrelevant context
-- ✅ **$990/month saved** at 1M queries (typical enterprise scale)
+- ✅ **$516/month saved** at 1M queries (typical enterprise scale)
+- ⚡ **Run benchmark:** `python run_benchmark.py` (requires OpenAI API key)
 
 ---
 

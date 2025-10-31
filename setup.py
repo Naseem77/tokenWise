@@ -1,4 +1,5 @@
 """Setup script for TokenWise package."""
+
 from setuptools import setup, find_packages
 
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -47,4 +48,3 @@ setup(
         "Documentation": "https://github.com/yourusername/tokenwise#readme",
     },
 )
-

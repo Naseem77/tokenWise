@@ -1,14 +1,15 @@
 """Basic usage example for TokenWise."""
+
 import requests
 import json
 
 
 def main():
     """Run basic optimization example."""
-    
+
     # API endpoint
     base_url = "http://localhost:8000"
-    
+
     # Example context (simulate a codebase)
     context = [
         {
@@ -40,7 +41,7 @@ def main():
                 }
                 return jwt.encode(payload, SECRET_KEY, algorithm='HS256')
             """,
-            "type": "code"
+            "type": "code",
         },
         {
             "id": "database_module",
@@ -67,7 +68,7 @@ def main():
                 conn.commit()
                 conn.close()
             """,
-            "type": "code"
+            "type": "code",
         },
         {
             "id": "api_routes",
@@ -91,7 +92,7 @@ def main():
                 user = get_user_from_db(payload['username'])
                 return {"username": user.username, "email": user.email}
             """,
-            "type": "code"
+            "type": "code",
         },
         {
             "id": "readme",
@@ -112,13 +113,13 @@ def main():
             2. Initialize database: python init_db.py
             3. Run server: uvicorn main:app --reload
             """,
-            "type": "docs"
-        }
+            "type": "docs",
+        },
     ]
-    
+
     # User query
     query = "How does the JWT authentication work in this application?"
-    
+
     # Optimization request
     request_data = {
         "query": query,
@@ -129,32 +130,28 @@ def main():
             "includeMetadata": True,
             "preserveOrder": False,
             "minRelevanceScore": 0.3,
-            "diversityLambda": 0.5
-        }
+            "diversityLambda": 0.5,
+        },
     }
-    
+
     print("=" * 80)
     print("TokenWise Context Optimization Example")
     print("=" * 80)
     print(f"\nQuery: {query}")
     print(f"\nOriginal Context: {len(context)} items")
-    
+
     # Send request
     try:
-        response = requests.post(
-            f"{base_url}/optimize",
-            json=request_data,
-            timeout=30
-        )
-        
+        response = requests.post(f"{base_url}/optimize", json=request_data, timeout=30)
+
         if response.status_code == 200:
             result = response.json()
-            
+
             print("\n" + "=" * 80)
             print("Optimization Results")
             print("=" * 80)
-            
-            stats = result['stats']
+
+            stats = result["stats"]
             print(f"\n📊 Statistics:")
             print(f"  • Original Tokens: {stats['original_tokens']}")
             print(f"  • Optimized Tokens: {stats['optimized_tokens']}")
@@ -163,20 +160,20 @@ def main():
             print(f"  • Processing Time: {stats['processing_time_ms']}ms")
             print(f"  • Chunks Analyzed: {stats['chunks_analyzed']}")
             print(f"  • Chunks Selected: {stats['chunks_selected']}")
-            
+
             print(f"\n🎯 Selected Context Chunks:")
-            for i, chunk in enumerate(result['optimized_context'], 1):
+            for i, chunk in enumerate(result["optimized_context"], 1):
                 print(f"\n  {i}. Source: {chunk['source']}")
                 print(f"     Relevance: {chunk['relevance_score']:.3f}")
                 print(f"     Reason: {chunk['reason']}")
                 print(f"     Preview: {chunk['text'][:100]}...")
-            
+
             print("\n" + "=" * 80)
-            
+
         else:
             print(f"\n❌ Error: {response.status_code}")
             print(response.json())
-            
+
     except requests.exceptions.ConnectionError:
         print("\n❌ Error: Could not connect to TokenWise API")
         print("   Make sure the server is running: python main.py")
@@ -186,4 +183,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
